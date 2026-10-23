@@ -1,0 +1,8 @@
+{
+  "name": "Mahadar Aure AI Secretary",
+  "description": "Native-grade Islamic & Hausa matchmaking administration, AI Secretary, member registration, and compatibility engine for Mahadar Aure in Nigeria.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

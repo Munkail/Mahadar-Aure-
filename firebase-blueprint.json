@@ -1,0 +1,182 @@
+{
+  "entities": {
+    "users": {
+      "title": "User",
+      "description": "User account authentication and role profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 256 },
+        "displayName": { "type": "string", "maxLength": 128 },
+        "role": { "type": "string", "enum": ["admin", "staff", "member"] },
+        "phone": { "type": "string", "maxLength": 32 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role", "createdAt"]
+    },
+    "memberProfiles": {
+      "title": "MemberProfile",
+      "description": "Matchmaking candidate registration details and preferences",
+      "type": "object",
+      "properties": {
+        "memberId": { "type": "string", "maxLength": 64 },
+        "fullName": { "type": "string", "maxLength": 128 },
+        "age": { "type": "number" },
+        "dateOfBirth": { "type": "string", "maxLength": 32 },
+        "gender": { "type": "string", "enum": ["Namiji / Male", "Mace / Female"] },
+        "state": { "type": "string", "maxLength": 64 },
+        "city": { "type": "string", "maxLength": 64 },
+        "preferredMarriageLocation": { "type": "string", "maxLength": 128 },
+        "phoneNumber": { "type": "string", "maxLength": 32 },
+        "preferredContactMethod": { "type": "string", "maxLength": 64 },
+        "educationLevel": { "type": "string", "maxLength": 64 },
+        "occupation": { "type": "string", "maxLength": 128 },
+        "languagesSpoken": { "type": "string", "maxLength": 256 },
+        "maritalStatus": { "type": "string", "enum": ["Never Married", "Divorced", "Widowed"] },
+        "numberOfChildren": { "type": "number" },
+        "genotype": { "type": "string", "maxLength": 16 },
+        "religiousPreferences": { "type": "string", "maxLength": 512 },
+        "spousePreferences": { "type": "string", "maxLength": 1024 },
+        "membershipPlan": { "type": "string", "enum": ["Standard", "VIP"] },
+        "paymentStatus": { "type": "string", "enum": ["pending", "confirmed", "failed", "refunded"] },
+        "registrationDate": { "type": "string", "format": "date-time" },
+        "consentGiven": { "type": "boolean" },
+        "notesRestricted": { "type": "string", "maxLength": 1024 },
+        "isVerified": { "type": "boolean" },
+        "isActive": { "type": "boolean" },
+        "isArchived": { "type": "boolean" },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["memberId", "fullName", "age", "gender", "state", "phoneNumber", "membershipPlan", "consentGiven", "registrationDate"]
+    },
+    "enquiries": {
+      "title": "Enquiry",
+      "description": "Customer support and enquiry tickets",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "memberId": { "type": "string", "maxLength": 64 },
+        "senderName": { "type": "string", "maxLength": 128 },
+        "senderContact": { "type": "string", "maxLength": 128 },
+        "subject": { "type": "string", "maxLength": 256 },
+        "message": { "type": "string", "maxLength": 2048 },
+        "status": { "type": "string", "enum": ["open", "in_progress", "resolved"] },
+        "assignedStaff": { "type": "string", "maxLength": 128 },
+        "staffNotes": { "type": "string", "maxLength": 1024 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "senderName", "senderContact", "subject", "message", "status", "createdAt"]
+    },
+    "paymentRecords": {
+      "title": "PaymentRecord",
+      "description": "Subscription and registration fee audit records",
+      "type": "object",
+      "properties": {
+        "paymentId": { "type": "string", "maxLength": 64 },
+        "memberId": { "type": "string", "maxLength": 64 },
+        "memberName": { "type": "string", "maxLength": 128 },
+        "plan": { "type": "string", "enum": ["Standard", "VIP"] },
+        "amountNaira": { "type": "number" },
+        "paymentReference": { "type": "string", "maxLength": 128 },
+        "paymentDate": { "type": "string", "maxLength": 64 },
+        "paymentStatus": { "type": "string", "enum": ["pending", "confirmed", "failed", "refunded"] },
+        "reviewedByStaffId": { "type": "string", "maxLength": 128 },
+        "verifiedAt": { "type": "string", "maxLength": 64 },
+        "notes": { "type": "string", "maxLength": 512 }
+      },
+      "required": ["paymentId", "memberId", "plan", "amountNaira", "paymentReference", "paymentStatus"]
+    },
+    "matchmakingSuggestions": {
+      "title": "MatchmakingSuggestion",
+      "description": "Staff-reviewed compatibility suggestions between consenting adults",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "candidateAId": { "type": "string", "maxLength": 64 },
+        "candidateBId": { "type": "string", "maxLength": 64 },
+        "candidateAName": { "type": "string", "maxLength": 128 },
+        "candidateBName": { "type": "string", "maxLength": 128 },
+        "compatibilityScore": { "type": "number" },
+        "matchingFactors": { "type": "string", "maxLength": 1024 },
+        "nonMatchingFactors": { "type": "string", "maxLength": 1024 },
+        "explanationHausa": { "type": "string", "maxLength": 2048 },
+        "explanationEnglish": { "type": "string", "maxLength": 2048 },
+        "staffStatus": { "type": "string", "enum": ["pending", "approved", "rejected", "modified"] },
+        "reviewedByStaff": { "type": "string", "maxLength": 128 },
+        "reviewedAt": { "type": "string", "maxLength": 64 },
+        "consentA": { "type": "boolean" },
+        "consentB": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "candidateAId", "candidateBId", "compatibilityScore", "staffStatus", "createdAt"]
+    },
+    "appSettings": {
+      "title": "AppSettings",
+      "description": "Global operational settings, prices, and Islamic matchmaking guidelines",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "serviceName": { "type": "string", "maxLength": 128 },
+        "tagline": { "type": "string", "maxLength": 256 },
+        "standardPriceNaira": { "type": "number" },
+        "vipPriceNaira": { "type": "number" },
+        "contactWhatsApp": { "type": "string", "maxLength": 64 },
+        "contactTelegram": { "type": "string", "maxLength": 256 },
+        "contactFacebook": { "type": "string", "maxLength": 256 },
+        "contactWhatsAppChannel": { "type": "string", "maxLength": 256 },
+        "privacyPolicyTextHausa": { "type": "string", "maxLength": 4096 },
+        "privacyPolicyTextEnglish": { "type": "string", "maxLength": 4096 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "serviceName", "tagline", "standardPriceNaira", "vipPriceNaira"]
+    },
+    "auditLogs": {
+      "title": "AuditLog",
+      "description": "Administrative actions audit log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "performedBy": { "type": "string", "maxLength": 128 },
+        "action": { "type": "string", "maxLength": 128 },
+        "targetEntity": { "type": "string", "maxLength": 128 },
+        "targetId": { "type": "string", "maxLength": 64 },
+        "details": { "type": "string", "maxLength": 1024 },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "performedBy", "action", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/users" },
+      "description": "User profiles and assigned role status"
+    },
+    "/memberProfiles/{profileId}": {
+      "schema": { "$ref": "#/entities/memberProfiles" },
+      "description": "Matchmaking member profiles"
+    },
+    "/enquiries/{enquiryId}": {
+      "schema": { "$ref": "#/entities/enquiries" },
+      "description": "Customer service tickets and enquiries"
+    },
+    "/paymentRecords/{paymentId}": {
+      "schema": { "$ref": "#/entities/paymentRecords" },
+      "description": "Recorded verification of payments"
+    },
+    "/matchmakingSuggestions/{suggestionId}": {
+      "schema": { "$ref": "#/entities/matchmakingSuggestions" },
+      "description": "Match suggestions evaluated by staff"
+    },
+    "/appSettings/{settingId}": {
+      "schema": { "$ref": "#/entities/appSettings" },
+      "description": "App configuration and service contact channels"
+    },
+    "/auditLogs/{logId}": {
+      "schema": { "$ref": "#/entities/auditLogs" },
+      "description": "Audit trail for sensitive actions"
+    }
+  }
+}
